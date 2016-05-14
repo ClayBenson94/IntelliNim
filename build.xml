@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="intellinim" default="all">
+  
+
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.swc"/>
+    <include name="*.apk"/>
+    <include name="*.zip"/>
+    <include name="*.egg"/>
+    <include name="*.ane"/>
+    <include name="*.jar"/>
+    <include name="*.ear"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module IntelliNim -->
+  
+  <dirname property="module.intellinim.basedir" file="${ant.file}"/>
+  
+  
+  
+  <property name="compiler.args.intellinim" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="intellinim.output.dir" value="${module.intellinim.basedir}/out/production/IntelliNim"/>
+  <property name="intellinim.testoutput.dir" value="${module.intellinim.basedir}/out/test/IntelliNim"/>
+  
+  <path id="intellinim.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="intellinim.module.production.classpath"/>
+  
+  <path id="intellinim.runtime.production.module.classpath">
+    <pathelement location="${intellinim.output.dir}"/>
+  </path>
+  
+  <path id="intellinim.module.classpath">
+    <pathelement location="${intellinim.output.dir}"/>
+  </path>
+  
+  <path id="intellinim.runtime.module.classpath">
+    <pathelement location="${intellinim.testoutput.dir}"/>
+    <pathelement location="${intellinim.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.intellinim">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.intellinim">
+    <patternset refid="excluded.from.module.intellinim"/>
+  </patternset>
+  
+  <path id="intellinim.module.sourcepath">
+    <dirset dir="${module.intellinim.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.intellinim" depends="compile.module.intellinim.production,compile.module.intellinim.tests" description="Compile module IntelliNim"/>
+  
+  <target name="compile.module.intellinim.production" description="Compile module IntelliNim; production classes">
+    <mkdir dir="${intellinim.output.dir}"/>
+    <javac destdir="${intellinim.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.intellinim}"/>
+      <bootclasspath refid="intellinim.module.bootclasspath"/>
+      <classpath refid="intellinim.module.production.classpath"/>
+      <src refid="intellinim.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.intellinim"/>
+    </javac>
+    
+    <copy todir="${intellinim.output.dir}">
+      <fileset dir="${module.intellinim.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.intellinim.tests" depends="compile.module.intellinim.production" description="compile module IntelliNim; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.intellinim" description="cleanup module">
+    <delete dir="${intellinim.output.dir}"/>
+    <delete dir="${intellinim.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.intellinim" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.intellinim" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.intellinim:jar" value="${basedir}/out/artifacts/IntelliNim_jar"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.IntelliNim.jar" value="${artifacts.temp.dir}/IntelliNim.jar"/>
+  </target>
+  
+  <target name="artifact.intellinim:jar" depends="init.artifacts, compile.module.intellinim" description="Build &#39;IntelliNim:jar&#39; artifact">
+    <property name="artifact.temp.output.intellinim:jar" value="${artifacts.temp.dir}/IntelliNim_jar"/>
+    <mkdir dir="${artifact.temp.output.intellinim:jar}"/>
+    <jar destfile="${temp.jar.path.IntelliNim.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${intellinim.output.dir}"/>
+      <manifest><attribute name="Main-Class" value="IntelliNim" /></manifest>
+    </jar>
+    <copy file="${temp.jar.path.IntelliNim.jar}" tofile="${artifact.temp.output.intellinim:jar}/IntelliNim.jar"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.intellinim:jar" description="Build all artifacts">
+    <mkdir dir="${artifact.output.intellinim:jar}"/>
+    <copy todir="${artifact.output.intellinim:jar}">
+      <fileset dir="${artifact.temp.output.intellinim:jar}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>
