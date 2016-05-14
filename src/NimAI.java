@@ -3,7 +3,7 @@
  */
 public class NimAI {
 
-    public static boolean makeAIMove(NimBoard board) {
+    public static boolean makeDumbAIMove(NimBoard board) {
         if (board.getBoardSize() == 2) {
             int leftAmount, rightAmount, difference;
             leftAmount = board.getNimBoard().get(0);

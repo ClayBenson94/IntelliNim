@@ -56,6 +56,7 @@ public class NimBoard {
         }
         nimBoard.set(position,nimBoard.get(position)-amount);
         cleanBoard();
+        changeTurns();
         return true;
     }
 
