@@ -37,13 +37,15 @@ public class IntelliNim {
                     System.out.print("Enter the amount to remove: ");
                     amount = scanner.next();
                 } while (!board.makeMove(Integer.parseInt(position),Integer.parseInt(amount)));
-                System.out.println("You brought the board to: "+board.toString());
+                System.out.println("You brought the board to: " + board.toString());
                 board.changeTurns();
             } else {
                 //Do Computer Things
-
                 //Print board state
                 board.printBoardStateMessage();
+
+                NimAI.makeAIMove(board);
+                System.out.println("The AI brought the board to: " + board.toString());
 
                 board.changeTurns(); //For now
             }
