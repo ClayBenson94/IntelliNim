@@ -69,6 +69,10 @@ public class NimBoard {
         }
     }
 
+    public void changeTurns() {
+        isHumanTurn = !isHumanTurn;
+    }
+
     public void printBoardStateMessage() {
         System.out.println();
         System.out.println("The Board's Current State is: " + toString());

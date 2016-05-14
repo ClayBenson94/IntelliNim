@@ -22,14 +22,14 @@ public class IntelliNim {
 
         while (!board.isEmpty()) {
 
-            //Print board state
-            board.printBoardStateMessage();
-
             boolean moveMade = false;
             String position, amount;
             if (board.isHumanTurn()) {
                 //Do Human Things
                 do {
+                    //Print board state
+                    board.printBoardStateMessage();
+
                     //Get input
                     System.out.print("Enter the position on the Nim board (0 indexed): ");
                     position = scanner.next();
@@ -37,8 +37,15 @@ public class IntelliNim {
                     System.out.print("Enter the amount to remove: ");
                     amount = scanner.next();
                 } while (!board.makeMove(Integer.parseInt(position),Integer.parseInt(amount)));
+                System.out.println("You brought the board to: "+board.toString());
+                board.changeTurns();
             } else {
                 //Do Computer Things
+
+                //Print board state
+                board.printBoardStateMessage();
+
+                board.changeTurns(); //For now
             }
         }
     }
