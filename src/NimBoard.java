@@ -16,10 +16,10 @@ public class NimBoard {
     }
 
     public String toString(){
-        String outputString = "";
+        String outputString = "(";
 
         if (isEmpty()) {
-            return outputString;
+            return "(Empty)";
         }
 
         for (int i = 0; i < nimBoard.size(); ++i) {
@@ -30,7 +30,7 @@ public class NimBoard {
                 outputString += ",";
             }
         }
-        return outputString;
+        return outputString + ")";
     }
 
     public boolean isEmpty() {
@@ -71,6 +71,14 @@ public class NimBoard {
 
     public void changeTurns() {
         isHumanTurn = !isHumanTurn;
+    }
+
+    public int getBoardSize() {
+        return nimBoard.size();
+    }
+
+    public ArrayList<Integer> getNimBoard() {
+        return nimBoard;
     }
 
     public void printBoardStateMessage() {

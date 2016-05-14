@@ -50,5 +50,12 @@ public class IntelliNim {
                 board.changeTurns(); //For now
             }
         }
+
+        System.out.print("\n\nThe winner is ");
+        if (!board.isHumanTurn()) { //Since this is the player who was forced to make an invalid move, they're the current player
+            System.out.print("Human!");
+        } else {
+            System.out.print("Computer!");
+        }
     }
 }
