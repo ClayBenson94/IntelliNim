@@ -1,7 +1,16 @@
 import java.util.Scanner;
 
+/**
+ * @author Clay Benson (cmb3602@rit.edu)
+ *
+ * Main class of the Nim Game. Handles taking input from users and determining who wins the game.
+ */
 public class IntelliNim {
 
+    /**
+     * Main method.
+     * @param args Command line arguments. Currently none are used.
+     */
     public static void main(String[] args) {
         System.out.println("Welcome to NimAI!");
 
@@ -19,10 +28,10 @@ public class IntelliNim {
         }
 
         NimBoard board = new NimBoard(nimString, humanFirstBool);
+        board.cleanBoard();
 
         while (!board.isEmpty()) {
 
-            boolean moveMade = false;
             String position, amount;
             if (board.isHumanTurn()) {
                 //Do Human Things
@@ -43,17 +52,18 @@ public class IntelliNim {
                 //Print board state
                 board.printBoardStateMessage();
 
-                NimAI.makeDumbAIMove(board);
+                NimAI.makeSmartInefficientAIMove(board);
                 System.out.println("The AI brought the board to: " + board.toString());
 
             }
         }
 
-        System.out.print("\n\nThe winner is ");
+        System.out.print("\nThe winner is ");
         if (!board.isHumanTurn()) { //Since this is the player who was forced to make an invalid move, they're the current player
             System.out.print("Human!");
         } else {
             System.out.print("Computer!");
         }
+        System.out.println();
     }
 }
