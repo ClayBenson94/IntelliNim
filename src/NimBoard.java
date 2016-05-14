@@ -87,4 +87,16 @@ public class NimBoard {
         System.out.println("The Board's Current State is: " + toString());
     }
 
+    public int getMaxIndex() {
+        int maxValue = 0;
+        int maxIndex = 0;
+        for (int i = 0; i < nimBoard.size(); ++i) {
+            if (nimBoard.get(i) > maxValue) {
+                maxValue = nimBoard.get(i);
+                maxIndex = i;
+            }
+        }
+        return maxIndex;
+    }
+
 }
