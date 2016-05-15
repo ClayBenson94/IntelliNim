@@ -47,7 +47,12 @@ public class NimAI {
         return board.makeMove(0,1);
     }
 
-
+    /**
+     * Makes the same move no matter what (remove 1 from the 0th stack)
+     * @param board The NimBoard to make a move on
+     * @return Boolean representing if it was able to make a valid move (should be true in most cases, false if
+     *          something broke)
+     */
     public static boolean makeStupidAIMove(NimBoard board) {
         return board.makeMove(0,1);
     }

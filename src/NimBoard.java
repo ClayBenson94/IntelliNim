@@ -158,10 +158,21 @@ public class NimBoard {
         System.out.println("The Board's Current State is: " + toString());
     }
 
+    /**
+     * A (maybe unnecessarily) complex method to print out a graphic representation of a board
+     */
     public void printGraphicBoard() {
+
+        //Don't print if its a huge board
+        if ((getBoardSize() > 10) | (getMaxValue() > 10 )) {
+            return;
+        }
+
         int width = 3*getBoardSize();
         width += getBoardSize();
         int height = getMaxValue()+1;
+
+
 
         char[][] printArray = new char[height][width];
 
@@ -195,6 +206,10 @@ public class NimBoard {
 
     }
 
+    /**
+     * Returns the value of the largest heap
+     * @return The value of the largest heap
+     */
     public int getMaxValue() {
         int maxValue = 0;
         for (int val : nimBoard) {
