@@ -55,7 +55,7 @@ public class IntelliNim {
         }
 
 
-        System.out.println("Welcome to NimAI!");
+        System.out.println("Welcome to NimAI! (" + gameDifficulty.toString() + ")");
 
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the Num Board (e.g. 1,4,2): ");
