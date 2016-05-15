@@ -7,11 +7,41 @@ import java.util.Scanner;
  */
 public class IntelliNim {
 
+    public enum Difficulty {
+        EASY, MEDIUM, HARD;
+    }
+
     /**
      * Main method.
      * @param args Command line arguments. Currently none are used.
      */
     public static void main(String[] args) {
+
+        Difficulty gameDifficulty = Difficulty.HARD;
+        String myArg;
+
+        for (int i = 0; i < args.length; ++i) {
+            try {
+                myArg = args[i].toLowerCase();
+                if ((myArg.equals("-difficulty")) | ((myArg.equals("-d")))) {
+                    if (args[i+1].equals("easy")) {
+                        gameDifficulty = Difficulty.EASY;
+                    } else if (args[i+1].toLowerCase().equals("medium")) {
+                        gameDifficulty = Difficulty.MEDIUM;
+                    } else if (args[i+1].toLowerCase().equals("hard")) {
+                        gameDifficulty = Difficulty.HARD;
+                    }
+                }
+                if ((myArg.equals("-help")) | (myArg.equals("-h"))) {
+                    printUsageStatement();
+                    return;
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.err.println("Error with command line arguments");
+                System.err.println(e.toString());
+            }
+        }
+
         System.out.println("Welcome to NimAI!");
 
         Scanner scanner = new Scanner(System.in);
@@ -52,7 +82,7 @@ public class IntelliNim {
                 //Print board state
                 board.printBoardStateMessage();
 
-                NimAI.makeSmartInefficientAIMove(board);
+                NimAI.makeAIMoveFromDifficulty(gameDifficulty, board);
                 System.out.println("The AI brought the board to: " + board.toString());
 
             }
@@ -66,4 +96,9 @@ public class IntelliNim {
         }
         System.out.println();
     }
+
+    public static void printUsageStatement() {
+        System.out.println("USAGE");
+    }
+
 }

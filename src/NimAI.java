@@ -9,6 +9,19 @@ import java.util.ArrayList;
  */
 public class NimAI {
 
+    public static boolean makeAIMoveFromDifficulty(IntelliNim.Difficulty difficulty, NimBoard board) {
+        switch (difficulty) {
+            case EASY:
+                return makeStupidAIMove(board);
+            case MEDIUM:
+                return makeBasicAIMove(board);
+            case HARD:
+                return makeSmartInefficientAIMove(board);
+            default:
+                return makeSmartInefficientAIMove(board);
+        }
+    }
+
     /**
      * Makes a basic move on a NimBoard. This AI will only know how to win if the board has 2 heaps that are not equal
      * If that is the case, it will reduce the board to 2 equal heaps, which is a winning position for the AI.
@@ -31,6 +44,11 @@ public class NimAI {
         } else if (board.getBoardSize() == 1) {
             return board.makeMove(0, board.getNimBoard().get(0));
         }
+        return board.makeMove(0,1);
+    }
+
+
+    public static boolean makeStupidAIMove(NimBoard board) {
         return board.makeMove(0,1);
     }
 
