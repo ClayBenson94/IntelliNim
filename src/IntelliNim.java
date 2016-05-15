@@ -11,7 +11,7 @@ public class IntelliNim {
      * The 3 Difficulties of the game
      */
     public enum Difficulty {
-        EASY, MEDIUM, HARD;
+        EASY, MEDIUM, HARD
     }
 
     /**
@@ -23,27 +23,37 @@ public class IntelliNim {
         Difficulty gameDifficulty = Difficulty.HARD;
         String myArg;
 
+        boolean diffArgStated = false;
+
         for (int i = 0; i < args.length; ++i) {
             try {
                 myArg = args[i].toLowerCase();
                 if ((myArg.equals("-difficulty")) | ((myArg.equals("-d")))) {
                     if (args[i+1].equals("easy")) {
                         gameDifficulty = Difficulty.EASY;
+                        diffArgStated = true;
                     } else if (args[i+1].toLowerCase().equals("medium")) {
                         gameDifficulty = Difficulty.MEDIUM;
+                        diffArgStated = true;
                     } else if (args[i+1].toLowerCase().equals("hard")) {
                         gameDifficulty = Difficulty.HARD;
+                        diffArgStated = true;
                     }
                 }
                 if ((myArg.equals("-help")) | (myArg.equals("-h"))) {
                     printUsageStatement();
-                    return;
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.err.println("Error with command line arguments");
-                System.err.println(e.toString());
             }
         }
+
+        //Fail if required arguments were not stated
+        if (!diffArgStated) {
+            System.err.println("Incorrect or Missing -difficulty or -d flag");
+            printUsageStatement();
+        }
+
 
         System.out.println("Welcome to NimAI!");
 
@@ -54,11 +64,7 @@ public class IntelliNim {
         System.out.print("Would you like to go first? [y/n]: ");
         String humanFirst = scanner.next();
         boolean humanFirstBool;
-        if (humanFirst.toLowerCase().equals("y")) {
-            humanFirstBool = true;
-        } else {
-            humanFirstBool = false;
-        }
+        humanFirstBool = humanFirst.toLowerCase().equals("y");
 
         NimBoard board = new NimBoard(nimString, humanFirstBool);
         board.cleanBoard();
@@ -102,9 +108,10 @@ public class IntelliNim {
 
     public static void printUsageStatement() {
         System.out.println("Program Usage:");
-        System.out.println("\tIntelliNim.jar [-h] [-d DIFFICULTY]\n");
-        System.out.println("\t-h: Display this help statement");
-        System.out.println("\t-d: Set the difficulty of the game (default HARD). Acceptable values are EASY, MEDIUM, and HARD");
+        System.out.println("\tIntelliNim.jar -d DIFFICULTY [-h]\n");
+        System.out.println("\t-help or -h: Display this help statement");
+        System.out.println("\t-difficulty or -d: Set the difficulty of the game. Acceptable values are EASY, MEDIUM, and HARD");
+        System.exit(0);
     }
 
 }
