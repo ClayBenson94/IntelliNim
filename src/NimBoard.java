@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.stream.Collector;
 
 /**
  * @author Clay Benson (cmb3602@rit.edu)
@@ -153,7 +154,55 @@ public class NimBoard {
      */
     public void printBoardStateMessage() {
         System.out.println();
+        printGraphicBoard();
         System.out.println("The Board's Current State is: " + toString());
+    }
+
+    public void printGraphicBoard() {
+        int width = 3*getBoardSize();
+        width += getBoardSize();
+        int height = getMaxValue()+1;
+
+        char[][] printArray = new char[height][width];
+
+        for (int i = 0; i < height; ++i) {
+            for (int j = 0; j < width; ++j) {
+                printArray[i][j] = '=';
+                if ((j+1) % 4 == 0) {
+                    printArray[i][j] = ' ';
+                    if (!(nimBoard.get(((j+1)/4)-1)+i >= height-1)) {
+                        printArray[i][j-1] = ' ';
+                        printArray[i][j-2] = ' ';
+                        printArray[i][j-3] = ' ';
+                    }
+                }
+                if (((j+3) % 4 == 0) & (i == height-1)) {
+                    printArray[i][j] = Integer.toString(((j+3)/4)-1).charAt(0);
+                    printArray[i][j-1] = ' ';
+                    j++;
+                    printArray[i][j] = ' ';
+                }
+
+            }
+        }
+
+        for (int i = 0; i < height; ++i) {
+            for (int j = 0; j < width; ++j) {
+                System.out.print(printArray[i][j]);
+            }
+            System.out.println();
+        }
+
+    }
+
+    public int getMaxValue() {
+        int maxValue = 0;
+        for (int val : nimBoard) {
+            if (val > maxValue) {
+                maxValue = val;
+            }
+        }
+        return maxValue;
     }
 
 }
