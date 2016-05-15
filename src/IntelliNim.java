@@ -29,7 +29,7 @@ public class IntelliNim {
             try {
                 myArg = args[i].toLowerCase();
                 if ((myArg.equals("-difficulty")) | ((myArg.equals("-d")))) {
-                    if (args[i+1].equals("easy")) {
+                    if (args[i+1].toLowerCase().equals("easy")) {
                         gameDifficulty = Difficulty.EASY;
                         diffArgStated = true;
                     } else if (args[i+1].toLowerCase().equals("medium")) {
