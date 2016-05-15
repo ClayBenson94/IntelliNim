@@ -7,6 +7,9 @@ import java.util.Scanner;
  */
 public class IntelliNim {
 
+    /**
+     * The 3 Difficulties of the game
+     */
     public enum Difficulty {
         EASY, MEDIUM, HARD;
     }
