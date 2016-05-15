@@ -98,7 +98,10 @@ public class IntelliNim {
     }
 
     public static void printUsageStatement() {
-        System.out.println("USAGE");
+        System.out.println("Program Usage:");
+        System.out.println("\tIntelliNim.jar [-h] [-d DIFFICULTY]\n");
+        System.out.println("\t-h: Display this help statement");
+        System.out.println("\t-d: Set the difficulty of the game (default HARD). Acceptable values are EASY, MEDIUM, and HARD");
     }
 
 }
