@@ -120,9 +120,7 @@ public class NimBoard {
      * Removes all 0 stacks from the board, simplifying it.
      */
     public void cleanBoard() {
-        while (nimBoard.contains(0)) {
-            nimBoard.remove((Integer) 0);
-        }
+        nimBoard.removeIf(stack -> stack.equals(0));
     }
 
     /**
