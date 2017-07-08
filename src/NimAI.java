@@ -16,9 +16,9 @@ public class NimAI {
             case MEDIUM:
                 return makeBasicAIMove(board);
             case HARD:
-                return makeSmartInefficientAIMove(board);
+                return makeSmartAIMove(board);
             default:
-                return makeSmartInefficientAIMove(board);
+                return makeSmartAIMove(board);
         }
     }
 
@@ -80,6 +80,21 @@ public class NimAI {
             }
         }
 
+        return board.makeMove(0,1);
+    }
+
+    /**
+     * Makes a smart AI move, ya dum dum
+     */
+    public static boolean makeSmartAIMove(NimBoard board) {
+
+        int X = nimSum(board);
+        for (int i = 0; i < board.getBoardSize(); ++i) {
+            int reduced = X ^ board.getNimBoard().get(i);
+            if (reduced < board.getNimBoard().get(i)) {
+                return board.makeMove(i, (board.getNimBoard().get(i)-reduced)); //reduce to value of 'reduced'
+            }
+        }
         return board.makeMove(0,1);
     }
 
